@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment 
+metadata:
+  name:  app
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+     app: app1
+     tier: frondend
+  template:
+    metadata:
+      labels: 
+        app: app1
+        tier: frondend
+    spec:
+      containers:
+      - name: app
+        image: nginx 
+
