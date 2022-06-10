@@ -1,5 +1,5 @@
 # kubernetes
-cluster setup:   https://www.cloudsigma.com/how-to-install-and-use-kubernetes-on-ubuntu-20-04/
+cluster setup:     			https://www.cloudsigma.com/how-to-install-and-use-kubernetes-on-ubuntu-20-04/
 
                  https://www.cloudsigma.com/how-to-install-operate-docker-on-ubuntu-in-the-public-cloud/
 
