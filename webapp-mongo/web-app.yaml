@@ -5,7 +5,7 @@ metadata:
   labels:
     app: webapp-db
 spec:
-  replicas: 1
+  replicas: 1 
   selector:
     matchLabels:
       app: webapp
@@ -19,6 +19,9 @@ spec:
         image: nanajanashia/k8s-demo-app:v1.0
         ports:
         - containerPort: 3000
+        resources:
+         requests:       
+          cpu: 100m
         env:
         - name: USER_NAME
           valueFrom:
