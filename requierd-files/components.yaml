@@ -1,3 +1,5 @@
+#used in vertical & horizontal-scaling , essential for metrics service ( to get utilization details of RAM and CPu, also make it available for scaling)
+
 apiVersion: v1
 kind: ServiceAccount
 metadata:
