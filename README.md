@@ -1,11 +1,13 @@
 # kubernetes
-cluster setup:     			https://www.cloudsigma.com/how-to-install-and-use-kubernetes-on-ubuntu-20-04/
+cluster setup: 
+                 https://www.cloudsigma.com/how-to-install-and-use-kubernetes-on-ubuntu-20-04/
 
                  https://www.cloudsigma.com/how-to-install-operate-docker-on-ubuntu-in-the-public-cloud/
 
 
 
-web-mongo (demo project):  https://youtu.be/s_o8dwzRlu4
+web-mongo (demo project):     
+            https://youtu.be/s_o8dwzRlu4
 
 
 metric server :   https://github.com/kubernetes-sigs/metrics-server/releases
