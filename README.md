@@ -20,4 +20,4 @@ horizondal scaling:  https://appychip.com/how-to-autoscale-pods-in-kubernetes-us
 COMMANDS  :       https://phoenixnap.com/kb/kubectl-commands-cheat-sheet
 
   
-  INGRESS CONTROLLER :    https://kubernetes.github.io/ingress-nginx/deploy/
+  INGRESS CONTROLLER :    https://docs.k0sproject.io/v1.22.5+k0s.1/examples/nginx-ingress/
