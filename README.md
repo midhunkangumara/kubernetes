@@ -27,3 +27,7 @@
   
 ### INGRESS CONTROLLER :    
           https://docs.k0sproject.io/v1.22.5+k0s.1/examples/nginx-ingress/
+          
+          
+### PROMETHEUS IN KUBERNETES CLUSTER   :
+               https://www.youtube.com/watch?v=QoDqxm7ybLc
