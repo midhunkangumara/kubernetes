@@ -31,3 +31,7 @@
           
 ### PROMETHEUS IN KUBERNETES CLUSTER   :
                https://www.youtube.com/watch?v=QoDqxm7ybLc
+               
+### INGRESS 
+
+                     https://matthewpalmer.net/kubernetes-app-developer/articles/kubernetes-ingress-guide-nginx-example.html
