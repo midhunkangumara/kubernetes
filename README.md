@@ -36,31 +36,32 @@ Installing NGINX using NodePort is the most simple example for Ingress Controlle
 
     Install NGINX Ingress Controller (using the official manifests of version v1.0.0 by the ingress-nginx project, supports Kubernetes versions >= v1.19)
 
-kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.0.0/deploy/static/provider/baremetal/deploy.yaml
+    $ kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.0.0/deploy/static/provider/baremetal/deploy.yaml
 
 Check that the Ingress controller pods have started
 
-kubectl get pods -n ingress-nginx
+    $ kubectl get pods -n ingress-nginx
 
 Check that you can see the NodePort service
 
-kubectl get services -n ingress-nginx
+     $ kubectl get services -n ingress-nginx
 
 From version v1.0.0 of the Ingress-NGINX Controller, a ingressclass object is required.
 
 In the default installation, an ingressclass object named nginx has already been created.
 
-$ kubectl -n ingress-nginx get ingressclasses
+     $ kubectl -n ingress-nginx get ingressclasses
+     
 NAME    CONTROLLER             PARAMETERS   AGE
 nginx   k8s.io/ingress-nginx   <none>       162m
 
 If this is only instance of the Ingresss-NGINX controller, you should add the annotation ingressclass.kubernetes.io/is-default-class in your ingress class:
 
-kubectl -n ingress-nginx annotate ingressclasses nginx ingressclass.kubernetes.io/is-default-class="true"
+      $ kubectl -n ingress-nginx annotate ingressclasses nginx ingressclass.kubernetes.io/is-default-class="true"
 
 Try connecting the Ingress controller using the NodePort from the previous step (in the range of 30000-32767)
 
-curl <worker-external-ip>:<node-port>
+      $ curl <worker-external-ip>:<node-port>
 
 If you don't yet have any backend service configured, you should see "404 Not Found" from nginx. This is ok for now. If you see a response from nginx, the Ingress Controller is running and you can reach it.
 
@@ -127,20 +128,90 @@ spec:
 
 Deploy the app:
 
-kubectl apply -f simple-web-server-with-ingress.yaml
+    $ kubectl apply -f simple-web-server-with-ingress.yaml
   
   remove validation(443)
   
-   kubectl delete -A ValidatingWebhookConfiguration ingress-nginx-admission
+***    $ kubectl delete -A ValidatingWebhookConfiguration ingress-nginx-admission  ***
 
 
 Verify that you can access your application using the NodePort from step 3.
 
-    curl <worker-external-ip>:<node-port> -H 'Host: web.example.com'
+     $ curl <worker-external-ip>:<node-port> -H 'Host: web.example.com'
 
     If you are successful, you should see <html><body><h1>It works!</h1></body></html>.
+    
+    
+ #### FOR PATH SPECIFIC PROXY
+ 
+ 
+                         apiVersion: v1
+                 kind: Namespace
+                 metadata:
+                   name: web
+                 ---
+                 apiVersion: apps/v1
+                 kind: Deployment
+                 metadata:
+                   name: web-server
+                   namespace: web
+                 spec:
+                   selector:
+                     matchLabels:
+                       app: web
+                   template:
+                     metadata:
+                       labels:
+                         app: web
+                     spec:
+                       containers:
+                       - name: httpd
+                         image: httpd:2.4.48-alpine3.14
+                         ports:
+                         - containerPort: 80
+                 ---
+                 apiVersion: v1
+                 kind: Service
+                 metadata:
+                   name: web-server-service
+                   namespace: web
+                 spec:
+                   selector:
+                     app: web
+                   ports:
+                     - protocol: TCP
+                       port: 5000
+                       targetPort: 80
+                 ---
+                 apiVersion: networking.k8s.io/v1
+                 kind: Ingress
+                 metadata:
+                   name: web-server-ingress
+                   namespace: web
+                   annotations:
+                     nginx.ingress.kubernetes.io/rewrite-target: /
+                 
+                 spec:
+                   ingressClassName: nginx
+                   rules:
+                   - host: alen.com
+                     http:
+                       paths:
+                       - path: /jomon
+                         pathType: Prefix
+                         backend:
+                           service:
+                             name: web-server-service
+                             port:
+                               number: 5000
 
-Install NGINX using LoadBalancer#
+    
+    
+    
+    
+    
+
+## Install NGINX using LoadBalancer 
 
 In this example you'll install NGINX Ingress controller using LoadBalancer on k0s.
 
